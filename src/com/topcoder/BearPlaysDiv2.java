@@ -9,10 +9,7 @@ import org.junit.Test;
 /* http://community.topcoder.com/stat?c=problem_statement&pm=13939 */
 public class BearPlaysDiv2 {
 	boolean[][] can;
-	
-	void go(int[] t) {
-	}
-	
+		
 	public String equalPiles(int A, int B, int C) {
 		can = new boolean[1505][1505];
 		int[] t = {A, B, C};
