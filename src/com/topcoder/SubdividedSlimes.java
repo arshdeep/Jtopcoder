@@ -4,8 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/*http://community.topcoder.com/stat?c=problem_statement&pm=13946*/
 public class SubdividedSlimes {
-	public 	int needCut(int S, int M) {
+	public int needCut(int S, int M) {
 		for (int i = 1; i <= S; ++i) {
 			int current = 0;
 			int rem = S;
