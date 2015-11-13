@@ -9,14 +9,6 @@ import java.util.Comparator;
 import org.junit.Test;
 
 public class CatchTheBeatEasy {
-	class PointSort implements Comparator<Point> {
-
-		@Override
-		public int compare(Point arg0, Point arg1) {
-			return arg0.y - arg1.y;
-		}
-		
-	}
 	public String ableToCatchAll(int[] x, int[] y) {
 		Point[] al = new Point[x.length];
 		
@@ -24,7 +16,12 @@ public class CatchTheBeatEasy {
 			al[i] = (new Point(x[i], y[i]));
 		}
 		
-		Arrays.sort(al, new PointSort());
+		Arrays.sort(al, new Comparator<Point>() {
+			public int compare(Point arg0, Point arg1) {
+				return arg0.y - arg1.y;
+			}
+		});
+
 		int ptX = 0, ptY = 0;
 		for (Point pt : al) {
 			int dx = Math.abs(pt.x - ptX);
