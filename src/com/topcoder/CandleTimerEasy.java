@@ -101,7 +101,7 @@ public class CandleTimerEasy {
 				}
 				
 				if (parent[A[i]] != B[i] && parent[B[i]] != A[i] && (x - y) <= len[i]) {
-					max = Math.max(max, x + (len[i] - x - y) / 2);
+					max = Math.max(max, x + (len[i] - (x - y)) / 2);
 				}
 			}
 			diffTimes.add(max);
