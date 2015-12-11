@@ -2,7 +2,7 @@ package com.topcoder;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 import org.junit.Test;
@@ -25,46 +25,57 @@ public class ShortestPathWithMagic {
 				return 1;
 			return 0;
 		}
-
-		
+	
 	}
+
 	public double getTime(String[] dist, int k)
 	{
 		int n = dist.length;
 		int m = dist[0].length();
 		int [][]graph = new int[n][m];
-		boolean visited[][][] = new boolean[51][51][51];
+		double visited[][] = new double[51][51];
 		
+		for (int i = 0;i < 51; ++i) {
+			Arrays.fill(visited[i], Double.MAX_VALUE);
+		}
 		for (int i = 0; i < dist.length; ++i) {
 			for (int j = 0, size = dist[i].length(); j < size; ++j) {
 				graph[i][j] = (int)(dist[i].charAt(j) - '0');
 			}
 		}
 		PriorityQueue<Node> pq = new PriorityQueue<Node>();
-		
+		visited[0][k] = 0.0;
 		pq.add( new Node(0, 0, k) );
 		double res = Double.MAX_VALUE;
 		
 		while(!pq.isEmpty()) {
 			Node top = pq.poll();
 			
-			if (top.index == 1) {
-				res = Math.min(res, top.dist);
+			if (visited[top.index][top.magic] < top.dist) {
+				continue;
 			}
 
 			for (int i = 0; i < m; ++i) {
-				if (i == top.index || visited[i][top.index][top.magic] || visited[top.index][i][top.magic]) continue;
+				if (i == top.index) continue;
 				
 				if (top.magic >= 1) {
-					pq.add(new Node(i, top.dist + (double)graph[top.index][i]/(double)2.0, top.magic - 1));
-					visited[top.index][i][top.magic - 1] = true;
-					visited[i][top.index][top.magic - 1] = true;
+					double distance = top.dist + (double)graph[top.index][i]/(double)2.0;
+					if (distance < visited[i][top.magic - 1] ) {
+						pq.add(new Node(i, distance, top.magic - 1));
+						visited[i][top.magic - 1] = distance;
+					}
 				}
 
-				visited[top.index][i][top.magic] = true;
-				visited[i][top.index][top.magic] = true;
-				pq.add(new Node(i, top.dist + (double)graph[top.index][i], top.magic));
+				double distance = top.dist + (double)graph[top.index][i];
+				if (distance < visited[i][top.magic] ) {
+					pq.add(new Node(i, distance, top.magic));
+					visited[i][top.magic] = distance;
+				}
 			}
+		}
+		
+		for (int i = 0; i <= k; ++i) {
+			res = Math.min(res, visited[1][i]);
 		}
 		return res;
 			
