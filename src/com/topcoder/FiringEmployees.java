@@ -5,10 +5,19 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class FiringEmployees {
-	int profit[];
-	
 	public int fire(int[] manager, int[] salary, int[] productivity) {
-		profit = new int[manager.length + 1];
+		int profit[] = new int[manager.length + 1];
+		
+		for (int i = manager.length; i >= 1; --i) {
+			profit[i] = Math.max(profit[i] + productivity[i - 1] - salary[i - 1], 0);
+			profit[manager[i - 1]] += profit[i];
+		}
+		
+		return profit[0];
+	}	
+	
+	public int fireEx(int[] manager, int[] salary, int[] productivity) {
+		int profit[] = new int[manager.length + 1];
 		
 		for (int i = 0; i < manager.length; ++i) {
 			profit[i + 1] = productivity[i] - salary[i];
