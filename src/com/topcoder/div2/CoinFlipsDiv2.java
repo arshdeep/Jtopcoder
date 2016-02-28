@@ -16,5 +16,4 @@ public class CoinFlipsDiv2 {
 		
 		return res;
 	}
-
 }
