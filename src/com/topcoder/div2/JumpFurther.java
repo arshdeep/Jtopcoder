@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class JumpFurther {
-
 	public int furthest(int N, int badStep) {
 		int sum = 0;
 		int res = 0;
@@ -23,6 +22,7 @@ public class JumpFurther {
 		
 		return res + (N * (N + 1)) / 2;
 	}
+	
 	@Test
 	public void test(){
 		assertTrue( furthest(1313, 5858) == 862641);

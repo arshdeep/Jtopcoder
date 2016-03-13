@@ -1,4 +1,4 @@
-package com.topcoder;
+package com.topcoder.div2;
 
 import java.util.LinkedList;
 
