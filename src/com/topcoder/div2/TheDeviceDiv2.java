@@ -23,6 +23,7 @@ public class TheDeviceDiv2 {
 		}
 		return "YES";
 	}
+	
 	@Test
 	public void test(){
 		
