@@ -24,12 +24,13 @@ public class FoxAndGo {
 		dfs(board, i, j - 1);
 		dfs(board, i, j + 1);
 	}
+	
 	int cal(String[] board) {
 		int res = 0;
 		visited = new boolean[board.length][board[0].length()];
 		for (int i = 0; i < board.length; ++i) {
 			for (int j = 0; j < board[i].length(); ++j) {
-				if (!visited[i][j] && board[i].charAt(j) == '.') {
+				if ( !visited[i][j] && board[i].charAt(j) == '.' ) {
 					dfs(board, i, j);
 				}
 			}
@@ -37,7 +38,7 @@ public class FoxAndGo {
 		
 		for (int i = 0; i < board.length; ++i) {
 			for (int j = 0; j < board[i].length(); ++j) {
-				if (!visited[i][j] && board[i].charAt(j) == 'o') {
+				if ( !visited[i][j] && board[i].charAt(j) == 'o' ) {
 					++res;
 				}
 			}
@@ -45,24 +46,21 @@ public class FoxAndGo {
 		
 		return res;
 	}
+
 	public int maxKill(String[] board) {
 		int res = Integer.MIN_VALUE;
 		
 		for (int i = 0; i < board.length; ++i) {
-			
 			for (int j = 0; j < board[i].length(); ++j) {
-				
 				char[] str = board[i].toCharArray();
 
-				if (str[j] == '.' ) {
+				if ( str[j] == '.' ) {
 					str[j] = 'x';
 					board[i] = String.valueOf(str);
 					res = Math.max(res, cal(board));
 					str[j] = '.';
 					board[i] = String.valueOf(str);
 				}
-
-				
 			}
 		
 		}
@@ -106,7 +104,5 @@ public class FoxAndGo {
 				 "xxxx.",
 				 "xxxx.",
 				 "ooooo"}) == 6);
-		
-
 	}
 }
