@@ -6,24 +6,27 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
+
 public class MultiplicationTable2 {
 	public int minimalGoodSet(int[] table) {
 		int n = (int) Math.sqrt(table.length);
 		int res = n;
 		
-		for (int a = 0; a < n; ++a) {
+		for (int i = 0; i < n; ++i) {
 			HashSet<Integer> hs = new HashSet<Integer>();
 			
-			hs.add(a);
-			while (true) {
+			hs.add(i);
+			while(true) {
 				HashSet<Integer> hs2 = new HashSet<Integer>(hs);
-				for (int i : hs2)  {
-					for (int j : hs2) {
-						hs.add(table[i* n + j]);
+				
+				for (int j : hs2) {
+					for (int k : hs2) {
+						hs.add(table[j * n + k]);
 					}
 					
 				}
-				if (hs2.size() == hs.size()) {
+				
+				if (hs.size() == hs2.size()) {
 					break;
 				}
 			}
@@ -47,5 +50,5 @@ public class MultiplicationTable2 {
 				 1,2,3,0,
 				 2,3,0,1,
 				 3,0,1,2}) == 1);
-	}
+	}	
 }
