@@ -38,9 +38,9 @@ public class TheNumberGameDivTwo {
 	
 	@Test
 	public void test() {
+		assertTrue( find(6).equals("John") );
 		assertTrue( find(128).equals("Brus") );
 		assertTrue( find(747).equals("Brus") );
-		assertTrue( find(6).equals("John") );
 		
 		assertTrue( find(2).equals("Brus") );
 		
