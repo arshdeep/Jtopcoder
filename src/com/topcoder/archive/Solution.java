@@ -1,4 +1,4 @@
-package com.topcoder;
+package com.topcoder.archive;
 
 import java.util.Scanner;
 

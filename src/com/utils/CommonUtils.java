@@ -79,6 +79,15 @@ public class CommonUtils {
 			parans(arr, n, open, close + 1, idx + 1);
 		}
 	}	
+	
+	static public int gcd (int a, int b) {
+		while (b != 0) {
+			int z = b;
+			b = a % b;
+			a = z;
+		}
+		return a;
+	}
 	@Test
 	public void test(){
 		CommonUtils.parans(new char[50], 50, 0, 0 , 0);

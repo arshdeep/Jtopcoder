@@ -1,4 +1,4 @@
-package com.topcoder;
+package com.topcoder.archive;
 
 import static org.junit.Assert.assertTrue;
 

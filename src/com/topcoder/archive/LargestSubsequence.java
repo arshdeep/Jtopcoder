@@ -1,4 +1,4 @@
-package com.topcoder;
+package com.topcoder.archive;
 
 public class LargestSubsequence {
 	public String getLargest(String s)
