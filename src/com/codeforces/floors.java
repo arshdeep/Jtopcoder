@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class Bank {
+public class floors {
 	public static PrintWriter out;
 
 	// -----------MyScanner class for faster input----------
@@ -56,50 +54,54 @@ public class Bank {
 	}
 
 	public static void main(String args[]) throws Exception {
+
 		class prob {
-			boolean cansolve(int[][] map, int[] sarr, int ss) {
-				int n = sarr.length;
-				int[] str2 = new int[sarr.length];
-				for (int i = 0; i < n; ++i) {
-					str2[i + 1] = sarr[i + 1];
-				}
-				int count = 0;
-				for (int i = 0; i < sarr.length; ++i) {
-					if (sarr[i] > ss) {
-						return false;
-					}
-					str2[i + 1] = sarr[i + 1] + 2;
-					if (str2[i + 1] > ss) {
-						++count;
-					}
-				}
-				if (n == 1 || count == 0) return true;
-				for (int i = 0; i < n; ++i) {
-					
-				}
-				return false;
-			}
 			public void solve() {
 				MyScanner s = new MyScanner();
 				int n = s.nextInt();
+				int m = s.nextInt();
 				
-				int max = 0;
-				int[] str = new int[n + 1];
+				String[] in = new String[n];
+				int topIdx = -1;
+				int lastIdx = -1;
+				int[][] dp = new int[n][2];
 				for (int i = 0; i < n; ++i) {
-					str[i + 1] = s.nextInt();
-					max = Math.max(max, str[i + 1]);
+					in[i] = s.next();
+					if (topIdx == -1 && in[i].contains("1")) {
+						topIdx = i;
+					}
+					
+					if (in[i].contains("1")) {
+						lastIdx = i;
+					}
 				}
-				boolean[][] map = new boolean[n][n];
-				for (int i = 0; i < n - 1; ++i) {
-					int src = s.nextInt();
-					int dst = s.nextInt();
-					map[src][dst] = true;
-					map[dst][src] = true;
+				if (lastIdx != -1) {
+					dp[lastIdx][0] = in[lastIdx].lastIndexOf("1");
+					dp[lastIdx][1] = m + 1;
+					if (lastIdx != topIdx) {
+						dp[lastIdx][0] += dp[lastIdx][0];
+					}
 				}
-
-				//System.out.println(res);
-
+				if (topIdx != -1) {
+					for (int i = n - 2; i >= topIdx; --i) {
+						int idx = in[i].lastIndexOf("1");
+						int idx2 = in[i].indexOf("1");
+						
+						if (idx != -1) {
+							dp[i][0] = Math.min(idx * (topIdx == i ? 1 : 2) + dp[i+1][0], m + 1 + dp[i+1][1]);
+							dp[i][1] = Math.min((topIdx == i ? 1 : 2) * (m + 1 - idx2) + dp[i+1][1], m + 1 + dp[i+1][0]);
+						}
+						else {
+							dp[i][0] = dp[i + 1][0];
+							dp[i][1] = dp[i + 1][1];
+						}
+					}
+					System.out.print(Math.min(dp[topIdx][0], dp[topIdx][1]) + n - topIdx - 1);
+					return;
+				}
+				System.out.print(0);
 			}
+			
 		}
 		prob s = new prob();
 		s.solve();

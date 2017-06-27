@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class Bank {
+public class ComplicatedBook {
 	public static PrintWriter out;
 
 	// -----------MyScanner class for faster input----------
@@ -56,49 +54,36 @@ public class Bank {
 	}
 
 	public static void main(String args[]) throws Exception {
+
 		class prob {
-			boolean cansolve(int[][] map, int[] sarr, int ss) {
-				int n = sarr.length;
-				int[] str2 = new int[sarr.length];
-				for (int i = 0; i < n; ++i) {
-					str2[i + 1] = sarr[i + 1];
-				}
-				int count = 0;
-				for (int i = 0; i < sarr.length; ++i) {
-					if (sarr[i] > ss) {
-						return false;
-					}
-					str2[i + 1] = sarr[i + 1] + 2;
-					if (str2[i + 1] > ss) {
-						++count;
-					}
-				}
-				if (n == 1 || count == 0) return true;
-				for (int i = 0; i < n; ++i) {
-					
-				}
-				return false;
-			}
 			public void solve() {
 				MyScanner s = new MyScanner();
 				int n = s.nextInt();
-				
-				int max = 0;
-				int[] str = new int[n + 1];
+				int m = s.nextInt();
+				int []in = new int[n];
 				for (int i = 0; i < n; ++i) {
-					str[i + 1] = s.nextInt();
-					max = Math.max(max, str[i + 1]);
+					in[i] = s.nextInt();
 				}
-				boolean[][] map = new boolean[n][n];
-				for (int i = 0; i < n - 1; ++i) {
-					int src = s.nextInt();
-					int dst = s.nextInt();
-					map[src][dst] = true;
-					map[dst][src] = true;
+				
+				for (int i = 0; i < m; ++i) {
+					int x = s.nextInt();
+					int y = s.nextInt();
+					int z = s.nextInt();
+					
+					int val  = in[z - 1];
+					int count = 0;
+					for (int j = x - 1; j < y; ++j) {
+						if (in[j] < val) {
+							++count;
+						}
+					}
+					if (val == in[x + count - 1]) {
+						System.out.println("YES");
+					}
+					else {
+						System.out.println("NO");
+					}
 				}
-
-				//System.out.println(res);
-
 			}
 		}
 		prob s = new prob();

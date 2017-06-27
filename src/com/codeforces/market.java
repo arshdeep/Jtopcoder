@@ -4,11 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Bank {
+public class market {
 	public static PrintWriter out;
 
 	// -----------MyScanner class for faster input----------
@@ -56,50 +55,70 @@ public class Bank {
 	}
 
 	public static void main(String args[]) throws Exception {
+
 		class prob {
-			boolean cansolve(int[][] map, int[] sarr, int ss) {
-				int n = sarr.length;
-				int[] str2 = new int[sarr.length];
-				for (int i = 0; i < n; ++i) {
-					str2[i + 1] = sarr[i + 1];
+			class state {
+				long k;
+				long sum;
+				public state(long a, long b) {
+					this.k = a;
+					this.sum = b;
 				}
-				int count = 0;
-				for (int i = 0; i < sarr.length; ++i) {
-					if (sarr[i] > ss) {
-						return false;
+			}
+
+			state can(int[] in, long k, long m) {
+				Long[] temp = new Long[in.length];
+				for (int i = 0; i < in.length; ++i) {
+					temp[i] = ((long)in[i] + (i+1)*(long)k);
+				}
+				Arrays.sort(temp);
+				state res = new state(0, 0);
+				for (int i = 0; i < temp.length; ++i) {
+					if (temp[i] > m) {
+						break;
 					}
-					str2[i + 1] = sarr[i + 1] + 2;
-					if (str2[i + 1] > ss) {
-						++count;
+					if (m > 0) {
+						res.k += 1;
+						res.sum += temp[i];
+						m -= temp[i];
 					}
 				}
-				if (n == 1 || count == 0) return true;
-				for (int i = 0; i < n; ++i) {
-					
-				}
-				return false;
+				return res;
 			}
 			public void solve() {
 				MyScanner s = new MyScanner();
 				int n = s.nextInt();
+				int m = s.nextInt();
 				
-				int max = 0;
-				int[] str = new int[n + 1];
+				int[] in = new int[n];
+				
 				for (int i = 0; i < n; ++i) {
-					str[i + 1] = s.nextInt();
-					max = Math.max(max, str[i + 1]);
+					in[i] = s.nextInt();
 				}
-				boolean[][] map = new boolean[n][n];
-				for (int i = 0; i < n - 1; ++i) {
-					int src = s.nextInt();
-					int dst = s.nextInt();
-					map[src][dst] = true;
-					map[dst][src] = true;
+				
+				int lo = 0;
+				int hi = n;
+				state res = new state(0, 0);
+				
+				while (lo < hi) {
+					int mid = lo + (hi - lo + 1) / 2;
+					res = can(in, mid, m);
+					if (res.k >= mid) {
+						lo = mid;
+					}
+					else {
+						hi = mid - 1;
+					}
 				}
-
-				//System.out.println(res);
-
+				if (lo != 0) {
+					res = can(in, lo, m);
+					System.out.println(res.k + " " + res.sum);
+				}
+				else {
+					System.out.println("0 0");
+				}
 			}
+			
 		}
 		prob s = new prob();
 		s.solve();

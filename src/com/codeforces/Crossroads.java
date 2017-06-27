@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class Bank {
+public class Crossroads {
 	public static PrintWriter out;
 
 	// -----------MyScanner class for faster input----------
@@ -56,50 +54,50 @@ public class Bank {
 	}
 
 	public static void main(String args[]) throws Exception {
+
 		class prob {
-			boolean cansolve(int[][] map, int[] sarr, int ss) {
-				int n = sarr.length;
-				int[] str2 = new int[sarr.length];
-				for (int i = 0; i < n; ++i) {
-					str2[i + 1] = sarr[i + 1];
-				}
-				int count = 0;
-				for (int i = 0; i < sarr.length; ++i) {
-					if (sarr[i] > ss) {
-						return false;
-					}
-					str2[i + 1] = sarr[i + 1] + 2;
-					if (str2[i + 1] > ss) {
-						++count;
-					}
-				}
-				if (n == 1 || count == 0) return true;
-				for (int i = 0; i < n; ++i) {
-					
-				}
-				return false;
-			}
 			public void solve() {
 				MyScanner s = new MyScanner();
-				int n = s.nextInt();
+				int [][]in = new int[4][4];
+				for (int i = 0; i < 4; ++i) {
+					for (int j = 0; j < 4; ++j) {
+						in[i][j] = s.nextInt();
+					}
+				}
 				
-				int max = 0;
-				int[] str = new int[n + 1];
-				for (int i = 0; i < n; ++i) {
-					str[i + 1] = s.nextInt();
-					max = Math.max(max, str[i + 1]);
+				for (int i = 0; i < 4; ++i) {
+					if ((in[i][0] == 1 || in[i][1] == 1 || in[i][2] == 1) && in[i][3] == 1) {
+						System.out.print("YES");
+						return;
+					}
+					int oIndx = (i + 2) % 4; 
+					if (in[i][1] == 1 && in[oIndx][3] == 1) {
+						System.out.print("YES");
+						return;
+					}
+					if (in[i][0] == 1) {
+						// i + 3 % 4 || 3 - i % 4
+						int idx = (i + 3) % 4;
+						if (idx != i) {
+							if (in[idx][3] == 1) {
+								System.out.print("YES");
+								return;
+							}
+						}
+					}
+					if (in[i][2] == 1) {
+						int idx = (i + 1) % 4;
+						if (idx != i) {
+							if (in[idx][3] == 1) {
+								System.out.print("YES");
+								return;
+							}
+						}
+					}					
 				}
-				boolean[][] map = new boolean[n][n];
-				for (int i = 0; i < n - 1; ++i) {
-					int src = s.nextInt();
-					int dst = s.nextInt();
-					map[src][dst] = true;
-					map[dst][src] = true;
-				}
-
-				//System.out.println(res);
-
+				System.out.print("NO");
 			}
+			
 		}
 		prob s = new prob();
 		s.solve();
