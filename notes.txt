@@ -1,3 +1,8 @@
+//dp recepie links
+http://apps.topcoder.com/forums/?module=Thread&threadID=697369&start=0
+http://apps.topcoder.com/forums/?module=Thread&threadID=700080&start=0
+http://apps.topcoder.com/forums/?module=Thread&threadID=697925&start=0
+
 ALL ( bfs nice hard implementation )
 ACODE ( dp medium )
 ACMAKER ( dp hard )
