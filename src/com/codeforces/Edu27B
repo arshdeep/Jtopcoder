@@ -1,0 +1,99 @@
+package com.topcoder;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+
+public class Edu27B {
+	public static PrintWriter out;
+    
+	   //-----------MyScanner class for faster input----------
+	   public static class MyScanner {
+	      BufferedReader br;
+	      StringTokenizer st;
+	 
+	      public MyScanner() {
+	         br = new BufferedReader(new InputStreamReader(System.in));
+	      }
+	 
+	      String next() {
+	          while (st == null || !st.hasMoreElements()) {
+	              try {
+	                  st = new StringTokenizer(br.readLine());
+	              } catch (IOException e) {
+	                  e.printStackTrace();
+	              }
+	          }
+	          return st.nextToken();
+	      }
+	 
+	      int nextInt() {
+	          return Integer.parseInt(next());
+	      }
+	 
+	      long nextLong() {
+	          return Long.parseLong(next());
+	      }
+	 
+	      double nextDouble() {
+	          return Double.parseDouble(next());
+	      }
+	 
+	      String nextLine(){
+	          String str = "";
+		  try {
+		     str = br.readLine();
+		  } catch (IOException e) {
+		     e.printStackTrace();
+		  }
+		  return str;
+	      }
+
+	   }
+	   public static void main(String args[]) throws Exception {
+			class prob {
+				int getMin(int idx, int[] buf, int min) {
+					if (min >= 3) {
+						return min; 
+					}
+					if (idx == 6) {
+						if (buf[0] + buf[1] + buf[2] == buf[3] + buf[4] + buf[5]) {
+							return min;
+						}
+						return Integer.MAX_VALUE;
+					}
+					int res = getMin(idx + 1, buf, min);
+					int x = buf[idx];
+					for (int i = 0; i < 10; ++i) {
+						buf[idx] = i;
+						int temp = getMin(idx + 1, buf, min + 1);
+						if (temp != Integer.MAX_VALUE) {
+							res = Math.min(temp, res);
+						}
+					}
+					buf[idx] = x;
+					
+					return res;
+				}
+				public void solve() {
+					MyScanner sc = new MyScanner();
+
+					String in = sc.next();
+					int[] buf = new int[in.length()];
+					for (int i = 0; i < in.length(); ++i) {
+						buf[i] = Integer.valueOf(in.charAt(i)) - '0';
+					}
+					if (buf[0] + buf[1] + buf[2] == buf[3] + buf[4] + buf[5]) {
+						System.out.println(0);
+					}
+					else {
+						System.out.println(getMin(0, buf, 0));
+					}
+					
+				}
+			}
+			prob s = new prob();
+			s.solve();
+		}
+}
